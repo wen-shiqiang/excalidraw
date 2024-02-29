@@ -1,5 +1,5 @@
 import React from "react";
-import { PlusPromoIcon } from "../../packages/excalidraw/components/icons";
+// import { PlusPromoIcon } from "../../packages/excalidraw/components/icons";
 import { MainMenu } from "../../packages/excalidraw/index";
 import { LanguageList } from "./LanguageList";
 
@@ -10,29 +10,29 @@ export const AppMainMenu: React.FC<{
 }> = React.memo((props) => {
   return (
     <MainMenu>
-      <MainMenu.DefaultItems.LoadScene />
+      {/* <MainMenu.DefaultItems.LoadScene /> */}
       <MainMenu.DefaultItems.SaveToActiveFile />
       <MainMenu.DefaultItems.Export />
-      <MainMenu.DefaultItems.SaveAsImage />
-      {props.isCollabEnabled && (
+      {/* <MainMenu.DefaultItems.SaveAsImage /> */}
+      {/* {props.isCollabEnabled && (
         <MainMenu.DefaultItems.LiveCollaborationTrigger
           isCollaborating={props.isCollaborating}
           onSelect={() => props.onCollabDialogOpen()}
         />
-      )}
+      )} */}
 
       <MainMenu.DefaultItems.Help />
       <MainMenu.DefaultItems.ClearCanvas />
-      <MainMenu.Separator />
-      <MainMenu.ItemLink
+      {/* <MainMenu.Separator /> */}
+      {/* <MainMenu.ItemLink
         icon={PlusPromoIcon}
         href={`${
           import.meta.env.VITE_APP_PLUS_LP
         }/plus?utm_source=excalidraw&utm_medium=app&utm_content=hamburger`}
         className="ExcalidrawPlus"
-      >
-        Excalidraw+
-      </MainMenu.ItemLink>
+      > */}
+      {/* Excalidraw+ */}
+      {/* </MainMenu.ItemLink> */}
       <MainMenu.DefaultItems.Socials />
       <MainMenu.Separator />
       <MainMenu.DefaultItems.ToggleTheme />

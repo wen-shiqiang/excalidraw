@@ -99,29 +99,29 @@
     </script>
     <% } %>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
 
     <!-- Excalidraw version -->
     <meta name="version" content="{version}" />
 
     <link
       rel="preload"
-      href="/Virgil.woff2"
+      href="./Virgil.woff2"
       as="font"
       type="font/woff2"
       crossorigin="anonymous"
     />
     <link
       rel="preload"
-      href="/Cascadia.woff2"
+      href="./Cascadia.woff2"
       as="font"
       type="font/woff2"
       crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="/fonts/fonts.css" type="text/css" />
+    <link rel="stylesheet" href="./fonts/fonts.css" type="text/css" />
     <% if ("%VITE_APP_DEV_DISABLE_LIVE_RELOAD%"==="true" ) { %>
     <script>
       {
@@ -139,7 +139,8 @@
     </script>
     <% } %>
     <script>
-      window.EXCALIDRAW_ASSET_PATH = "/";
+      window.EXCALIDRAW_ASSET_PATH = "./";
+      window.EXCALIDRAW_REQURE_URL_PATH = "https://www.csgmooc.com/uni-gateway/csg-reslibapi/";
       // setting this so that libraries installation reuses this window tab.
       window.name = "_excalidraw";
     </script>

@@ -14,7 +14,7 @@ const FooterCenter = ({ children }: { children?: React.ReactNode }) => {
             appState.zenModeEnabled,
         })}
       >
-        {children}
+        {/* {children} */}
       </div>
     </FooterCenterTunnel.In>
   );

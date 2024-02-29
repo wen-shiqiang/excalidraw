@@ -127,7 +127,6 @@ export class ActionManager {
   ) {
     const elements = this.getElementsIncludingDeleted();
     const appState = this.getAppState();
-
     trackAction(action, source, appState, elements, this.app, value);
 
     this.updater(action.perform(elements, appState, value, this.app));

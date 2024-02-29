@@ -87,5 +87,8 @@
     "prerelease:excalidraw": "node scripts/prerelease.js",
     "build:preview": "yarn build && vite preview --port 5000",
     "release:excalidraw": "node scripts/release.js"
+  },
+  "volta": {
+    "node": "18.19.1"
   }
 }

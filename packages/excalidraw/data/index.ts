@@ -101,7 +101,11 @@ export const exportCanvas = async (
     fileHandle?: FileSystemHandle | null;
     exportingFrame: ExcalidrawFrameLikeElement | null;
   },
+  fileName?: string | null,
 ) => {
+  if (fileName) {
+    name = fileName;
+  }
   if (elements.length === 0) {
     throw new Error(t("alerts.cannotExportEmptyCanvas"));
   }
@@ -149,7 +153,32 @@ export const exportCanvas = async (
     exportPadding,
     exportingFrame,
   });
-
+  if (type === "grzyk" || type === "kt") {
+    const blob = canvasToBlob(tempCanvas);
+    blob.then(async (blob) => {
+      const b: any = blob;
+      console.log("🚀  blob.then  blob:", b);
+      const formData = new FormData();
+      formData.append("multiFile", b);
+      formData.append("chunkNumber", "1");
+      formData.append("chunkSize", b?.size);
+      // 发送FormData（POST方法）到后端
+      const resp = await fetch(
+        `${window.EXCALIDRAW_REQURE_URL_PATH}/teacher/resdocument/uploadResourceOfPC`,
+        {
+          method: "POST",
+          // headers: {
+          //   "Content-Type": "application/json",
+          //   // Authorization: `Bearer ${apiKey}`,
+          // },
+          body: formData,
+          // body: JSON.stringify(body),
+        },
+      );
+      console.log("resp", resp);
+    });
+    return;
+  }
   if (type === "png") {
     let blob = canvasToBlob(tempCanvas);
 

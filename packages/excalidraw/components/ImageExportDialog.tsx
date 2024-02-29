@@ -33,7 +33,7 @@ import { Tooltip } from "./Tooltip";
 
 import "./ImageExportDialog.scss";
 import { FilledButton } from "./FilledButton";
-import { cloneJSON } from "../utils";
+import { cloneJSON, getDateTime } from "../utils";
 import { prepareElementsForExport } from "../data";
 
 const supportsContextFilters =
@@ -85,6 +85,10 @@ const ImageExportModal = ({
     appStateSnapshot.exportEmbedScene,
   );
   const [exportScale, setExportScale] = useState(appStateSnapshot.exportScale);
+  const [fileName, setFileName] = useState(
+    `${t("labels.untitled")}-${getDateTime()}`,
+  );
+  console.log("fileName", fileName);
 
   const previewRef = useRef<HTMLDivElement>(null);
   const [renderError, setRenderError] = useState<Error | null>(null);
@@ -158,7 +162,7 @@ const ImageExportModal = ({
         <div className="ImageExportModal__preview__canvas" ref={previewRef}>
           {renderError && <ErrorCanvasPreview />}
         </div>
-        <div className="ImageExportModal__preview__filename">
+        {/* <div className="ImageExportModal__preview__filename">
           {!nativeFileSystemSupported && (
             <input
               type="text"
@@ -175,7 +179,7 @@ const ImageExportModal = ({
               }}
             />
           )}
-        </div>
+        </div> */}
       </div>
       <div className="ImageExportModal__settings">
         <h3>{t("imageExportDialog.header")}</h3>
@@ -264,15 +268,87 @@ const ImageExportModal = ({
             }))}
           />
         </ExportSetting>
-
+        <ExportSetting
+          // label={t("imageExportDialog.label.scale")}
+          label="文件名"
+          name="exportScale"
+        >
+          {/* <RadioGroup
+            name="exportScale"
+            value={exportScale}
+            onChange={(scale) => {
+              setExportScale(scale);
+              actionManager.executeAction(actionChangeExportScale, "ui", scale);
+            }}
+            choices={EXPORT_SCALES.map((scale) => ({
+              value: scale,
+              label: `${scale}\u00d7`,
+            }))}
+          /> */}
+          <input
+            type="text"
+            className="TextInput"
+            // onBlur={handleBlur}
+            // onKeyDown={handleKeyDown}
+            value={fileName}
+            onChange={(event) => {
+              setFileName(
+                event.target.value
+                  ? event.target.value
+                  : `${t("labels.untitled")}-${getDateTime()}`,
+              );
+            }}
+          />
+        </ExportSetting>
         <div className="ImageExportModal__settings__buttons">
           <FilledButton
             className="ImageExportModal__settings__buttons__button"
             label={t("imageExportDialog.title.exportToPng")}
             onClick={() =>
-              onExportImage(EXPORT_IMAGE_TYPES.png, exportedElements, {
-                exportingFrame,
-              })
+              onExportImage(
+                EXPORT_IMAGE_TYPES.grzyk,
+                exportedElements,
+                {
+                  exportingFrame,
+                },
+                fileName,
+              )
+            }
+            // icon={downloadIcon}
+          >
+            {/* {t("imageExportDialog.button.exportToPng")} */}
+            个人资源库
+          </FilledButton>
+          <FilledButton
+            className="ImageExportModal__settings__buttons__button"
+            label={t("imageExportDialog.title.exportToPng")}
+            onClick={() =>
+              onExportImage(
+                EXPORT_IMAGE_TYPES.kt,
+                exportedElements,
+                {
+                  exportingFrame,
+                },
+                fileName,
+              )
+            }
+            // icon={downloadIcon}
+          >
+            {/* {t("imageExportDialog.button.exportToPng")} */}
+            课堂资料任务
+          </FilledButton>
+          <FilledButton
+            className="ImageExportModal__settings__buttons__button"
+            label={t("imageExportDialog.title.exportToPng")}
+            onClick={() =>
+              onExportImage(
+                EXPORT_IMAGE_TYPES.png,
+                exportedElements,
+                {
+                  exportingFrame,
+                },
+                fileName,
+              )
             }
             icon={downloadIcon}
           >
@@ -282,9 +358,14 @@ const ImageExportModal = ({
             className="ImageExportModal__settings__buttons__button"
             label={t("imageExportDialog.title.exportToSvg")}
             onClick={() =>
-              onExportImage(EXPORT_IMAGE_TYPES.svg, exportedElements, {
-                exportingFrame,
-              })
+              onExportImage(
+                EXPORT_IMAGE_TYPES.svg,
+                exportedElements,
+                {
+                  exportingFrame,
+                },
+                fileName,
+              )
             }
             icon={downloadIcon}
           >

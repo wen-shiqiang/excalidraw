@@ -1734,7 +1734,10 @@ class App extends React.Component<AppProps, AppState> {
     type: keyof typeof EXPORT_IMAGE_TYPES,
     elements: ExportedElements,
     opts: { exportingFrame: ExcalidrawFrameLikeElement | null },
+    fileName?: string,
   ) => {
+    console.log("🚀  App  fileName:", fileName);
+
     trackEvent("export", type, "ui");
     const fileHandle = await exportCanvas(
       type,
@@ -1747,6 +1750,7 @@ class App extends React.Component<AppProps, AppState> {
         viewBackgroundColor: this.state.viewBackgroundColor,
         exportingFrame: opts.exportingFrame,
       },
+      fileName,
     )
       .catch(muteFSAbortError)
       .catch((error) => {

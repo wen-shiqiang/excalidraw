@@ -15,6 +15,10 @@ type Props = {
 };
 
 export const ProjectName = (props: Props) => {
+
+  console.log("🚀  ProjectName  props:", props);
+
+
   const { id } = useExcalidrawContainer();
   const [fileName, setFileName] = useState<string>(props.value);
 

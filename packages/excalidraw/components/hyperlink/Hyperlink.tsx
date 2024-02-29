@@ -104,7 +104,7 @@ export const Hyperlink = ({
 
       if (!embeddableURLValidator(link, appProps.validateEmbeddable)) {
         if (link) {
-          setToast({ message: t("toast.unableToEmbed"), closable: true });
+          // setToast({ message: t("toast.unableToEmbed"), closable: true });
         }
         element.link && embeddableLinkCache.set(element.id, element.link);
         mutateElement(element, {

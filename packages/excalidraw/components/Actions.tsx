@@ -338,18 +338,18 @@ export const ShapesSwitcher = ({
           >
             {t("toolBar.laser")}
           </DropdownMenu.Item>
-          <div style={{ margin: "6px 0", fontSize: 14, fontWeight: 600 }}>
+          {/* <div style={{ margin: "6px 0", fontSize: 14, fontWeight: 600 }}>
             Generate
-          </div>
-          {app.props.aiEnabled !== false && <TTDDialogTriggerTunnel.Out />}
-          <DropdownMenu.Item
+          </div> */}
+          {/* {app.props.aiEnabled !== false && <TTDDialogTriggerTunnel.Out />} */}
+          {/* <DropdownMenu.Item
             onSelect={() => app.setOpenDialog({ name: "ttd", tab: "mermaid" })}
             icon={mermaidLogoIcon}
             data-testid="toolbar-embeddable"
           >
             {t("toolBar.mermaidToExcalidraw")}
-          </DropdownMenu.Item>
-          {app.props.aiEnabled !== false && (
+          </DropdownMenu.Item> */}
+          {/* {app.props.aiEnabled !== false && (
             <>
               <DropdownMenu.Item
                 onSelect={() => app.onMagicframeToolSelect()}
@@ -374,7 +374,7 @@ export const ShapesSwitcher = ({
                 {t("toolBar.magicSettings")}
               </DropdownMenu.Item>
             </>
-          )}
+          )} */}
         </DropdownMenu.Content>
       </DropdownMenu>
     </>

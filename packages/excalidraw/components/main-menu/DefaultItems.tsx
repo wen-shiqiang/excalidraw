@@ -17,9 +17,9 @@ import {
   TrashIcon,
   usersIcon,
 } from "../icons";
-import { GithubIcon, DiscordIcon, XBrandIcon } from "../icons";
+// import { GithubIcon, DiscordIcon, XBrandIcon } from "../icons";
 import DropdownMenuItem from "../dropdownMenu/DropdownMenuItem";
-import DropdownMenuItemLink from "../dropdownMenu/DropdownMenuItemLink";
+// import DropdownMenuItemLink from "../dropdownMenu/DropdownMenuItemLink";
 import {
   actionClearCanvas,
   actionLoadScene,
@@ -66,17 +66,17 @@ export const LoadScene = () => {
     }
   };
 
-  return (
-    <DropdownMenuItem
-      icon={LoadIcon}
-      onSelect={handleSelect}
-      data-testid="load-button"
-      shortcut={getShortcutFromShortcutName("loadScene")}
-      aria-label={t("buttons.load")}
-    >
-      {t("buttons.load")}
-    </DropdownMenuItem>
-  );
+  // return (
+  // <DropdownMenuItem
+  //   icon={LoadIcon}
+  //   onSelect={handleSelect}
+  //   data-testid="load-button"
+  //   shortcut={getShortcutFromShortcutName("loadScene")}
+  //   aria-label={t("buttons.load")}
+  // >
+  //   {t("buttons.load")}
+  // </DropdownMenuItem>
+  // );
 };
 LoadScene.displayName = "LoadScene";
 
@@ -101,19 +101,19 @@ export const SaveToActiveFile = () => {
 SaveToActiveFile.displayName = "SaveToActiveFile";
 
 export const SaveAsImage = () => {
-  const setAppState = useExcalidrawSetAppState();
-  const { t } = useI18n();
-  return (
-    <DropdownMenuItem
-      icon={ExportImageIcon}
-      data-testid="image-export-button"
-      onSelect={() => setAppState({ openDialog: { name: "imageExport" } })}
-      shortcut={getShortcutFromShortcutName("imageExport")}
-      aria-label={t("buttons.exportImage")}
-    >
-      {t("buttons.exportImage")}
-    </DropdownMenuItem>
-  );
+  // const setAppState = useExcalidrawSetAppState();
+  // const { t } = useI18n();
+  // return (
+  //   <DropdownMenuItem
+  //     icon={ExportImageIcon}
+  //     data-testid="image-export-button"
+  //     onSelect={() => setAppState({ openDialog: { name: "imageExport" } })}
+  //     shortcut={getShortcutFromShortcutName("imageExport")}
+  //     aria-label={t("buttons.exportImage")}
+  //   >
+  //     {t("buttons.exportImage")}
+  //   </DropdownMenuItem>
+  // );
 };
 SaveAsImage.displayName = "SaveAsImage";
 
@@ -230,7 +230,8 @@ export const Export = () => {
     <DropdownMenuItem
       icon={ExportIcon}
       onSelect={() => {
-        setAppState({ openDialog: { name: "jsonExport" } });
+        // setAppState({ openDialog: { name: "jsonExport" } });
+        setAppState({ openDialog: { name: "imageExport" } });
       }}
       data-testid="json-export-button"
       aria-label={t("buttons.export")}
@@ -246,27 +247,27 @@ export const Socials = () => {
 
   return (
     <>
-      <DropdownMenuItemLink
+      {/* <DropdownMenuItemLink
         icon={GithubIcon}
         href="https://github.com/excalidraw/excalidraw"
         aria-label="GitHub"
       >
         GitHub
-      </DropdownMenuItemLink>
-      <DropdownMenuItemLink
+      </DropdownMenuItemLink> */}
+      {/* <DropdownMenuItemLink
         icon={XBrandIcon}
         href="https://x.com/excalidraw"
         aria-label="X"
       >
         {t("labels.followUs")}
-      </DropdownMenuItemLink>
-      <DropdownMenuItemLink
+      </DropdownMenuItemLink> */}
+      {/* <DropdownMenuItemLink
         icon={DiscordIcon}
         href="https://discord.gg/UexuTaE"
         aria-label="Discord"
       >
         {t("labels.discordChat")}
-      </DropdownMenuItemLink>
+      </DropdownMenuItemLink> */}
     </>
   );
 };

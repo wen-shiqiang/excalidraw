@@ -99,14 +99,14 @@ const DefaultMainMenu: React.FC<{
 }> = ({ UIOptions }) => {
   return (
     <MainMenu __fallback>
-      <MainMenu.DefaultItems.LoadScene />
+      {/* <MainMenu.DefaultItems.LoadScene /> */}
       <MainMenu.DefaultItems.SaveToActiveFile />
       {/* FIXME we should to test for this inside the item itself */}
       {UIOptions.canvasActions.export && <MainMenu.DefaultItems.Export />}
       {/* FIXME we should to test for this inside the item itself */}
-      {UIOptions.canvasActions.saveAsImage && (
+      {/* {UIOptions.canvasActions.saveAsImage && (
         <MainMenu.DefaultItems.SaveAsImage />
-      )}
+      )} */}
       <MainMenu.DefaultItems.Help />
       <MainMenu.DefaultItems.ClearCanvas />
       <MainMenu.Separator />
@@ -331,7 +331,7 @@ const LayerUI = ({
               )}
             </Section>
           )}
-          <div
+          {/* <div
             className={clsx(
               "layer-ui__wrapper__top-right zen-mode-transition",
               {
@@ -352,7 +352,7 @@ const LayerUI = ({
                 appState.openSidebar?.name !== DEFAULT_SIDEBAR.name) && (
                 <tunnels.DefaultSidebarTriggerTunnel.Out />
               )}
-          </div>
+          </div> */}
         </div>
       </FixedSideContainer>
     );

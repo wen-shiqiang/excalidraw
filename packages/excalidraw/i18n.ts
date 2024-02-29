@@ -36,7 +36,7 @@ export const languages: Language[] = [
     { code: "hu-HU", label: "Magyar" },
     { code: "id-ID", label: "Bahasa Indonesia" },
     { code: "it-IT", label: "Italiano" },
-    { code: "ja-JP", label: "日本語" },
+    // { code: "ja-JP", label: "日本語" },
     { code: "kab-KAB", label: "Taqbaylit" },
     { code: "kk-KZ", label: "Қазақ тілі" },
     { code: "ko-KR", label: "한국어" },

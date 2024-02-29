@@ -180,6 +180,8 @@ export const EXPORT_IMAGE_TYPES = {
   png: "png",
   svg: "svg",
   clipboard: "clipboard",
+  grzyk: "grzyk", // custom format for 个人资源库
+  kt: "kt", // custom format for 课堂
 } as const;
 
 export const EXPORT_DATA_TYPES = {

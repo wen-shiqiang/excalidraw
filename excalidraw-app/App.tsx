@@ -546,7 +546,7 @@ const ExcalidrawWrapper = () => {
       ) as Theme | null) ||
       // FIXME migration from old LS scheme. Can be removed later. #5660
       importFromLocalStorage().appState?.theme ||
-      THEME.LIGHT,
+      THEME.DARK,
   );
 
   useEffect(() => {

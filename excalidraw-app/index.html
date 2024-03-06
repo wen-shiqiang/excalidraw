@@ -140,9 +140,16 @@
     <% } %>
     <script>
       window.EXCALIDRAW_ASSET_PATH = "./";
-      window.EXCALIDRAW_REQURE_URL_PATH = "https://www.csgmooc.com/uni-gateway/csg-reslibapi/";
+      window.JX_REQURE_URL = "http://www.csgweb.com/reslibapi/"; // 教学资源库
+      window.KT_REQURE_URL = "http://www.csgweb.com/jxapi/"; // 课堂
       // setting this so that libraries installation reuses this window tab.
       window.name = "_excalidraw";
+      let oldCodeNum = localStorage.getItem('oldCodeNum') || null;
+      let codeNum = sessionStorage.getItem('codeNum') || null;
+      if (oldCodeNum !== codeNum && codeNum) {
+        localStorage.setItem('oldCodeNum', codeNum);
+        localStorage.setItem('excalidraw', []);
+      }
     </script>
 
     <!-- FIXME: remove this when we update CRA (fix SW caching) -->

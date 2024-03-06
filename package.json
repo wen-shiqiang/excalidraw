@@ -90,5 +90,15 @@
   },
   "volta": {
     "node": "18.19.1"
+  },
+  "proxy": {
+    "/reslibapi": {
+      "target": "http://www.csgweb.com/reslibapi",
+      "ws": true
+    },
+    "/jxapi": {
+      "target": "http://www.csgweb.com/jxapi",
+      "ws": true
+    }
   }
 }

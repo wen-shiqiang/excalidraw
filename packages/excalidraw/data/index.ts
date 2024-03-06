@@ -1,3 +1,4 @@
+import { getRequest, postRequest } from "../requstUtil.js";
 import {
   copyBlobToClipboardAsPng,
   copyTextToSystemClipboard,
@@ -25,7 +26,6 @@ import { canvasToBlob } from "./blob";
 import { fileSave, FileSystemHandle } from "./filesystem";
 import { serializeAsJSON } from "./json";
 import { getElementsOverlappingFrame } from "../frame";
-
 export { loadFromBlob } from "./blob";
 export { loadFromJSON, saveAsJSON } from "./json";
 
@@ -102,6 +102,7 @@ export const exportCanvas = async (
     exportingFrame: ExcalidrawFrameLikeElement | null;
   },
   fileName?: string | null,
+  fun?: any,
 ) => {
   if (fileName) {
     name = fileName;
@@ -155,52 +156,118 @@ export const exportCanvas = async (
   });
   if (type === "grzyk" || type === "kt") {
     const blob = canvasToBlob(tempCanvas);
+    let b: any = null;
     blob.then(async (blob) => {
-      const b: any = blob;
+      b = blob;
       console.log("🚀  blob.then  blob:", b);
-      const formData = new FormData();
-      formData.append("multiFile", b);
-      formData.append("chunkNumber", "1");
-      formData.append("chunkSize", b?.size);
-      // 发送FormData（POST方法）到后端
-      const resp = await fetch(
-        `${window.EXCALIDRAW_REQURE_URL_PATH}/teacher/resdocument/uploadResourceOfPC`,
-        {
-          method: "POST",
-          // headers: {
-          //   "Content-Type": "application/json",
-          //   // Authorization: `Bearer ${apiKey}`,
-          // },
-          body: formData,
-          // body: JSON.stringify(body),
-        },
-      );
-      console.log("resp", resp);
+      console.log("🚀  name:", name);
+      const excalidrawData =
+        JSON.parse(localStorage.getItem("excalidrawData") || "{}") || {};
+      if (type === "kt") {
+        const formData = new FormData();
+        formData.append("fid", "0");
+        formData.append("courseid", excalidrawData.courseid || "1395");
+        formData.append("token", excalidrawData.token || "");
+        formData.append("tid", excalidrawData.tid || "");
+        formData.append("ttid", excalidrawData.ttid || "");
+        formData.append("resType", "0");
+        formData.append("id", "WU_FILE_0");
+        formData.append("name", `${name}.png`);
+        formData.append("type", b?.type);
+        formData.append("lastModifiedDate", new Date().toString());
+        formData.append("size", b?.size);
+        formData.append("multiFile", b);
+        await fetch(
+          `${window.KT_REQURE_URL}/appresource/uploadPersonalDocument`,
+          {
+            method: "POST",
+            headers: {
+              Authtoken: excalidrawData.token,
+            },
+            body: formData,
+          },
+        ).then((response) => {
+          if (response.ok) {
+            response.json().then(async (res) => {
+              if (res.errcode === 200) {
+                const { data } = res;
+                const docs = JSON.stringify([data.id.toString()]);
+
+                const params = {
+                  docs,
+                  scid: excalidrawData.scid,
+                  ttid: excalidrawData.ttid,
+                  upsize: data.size,
+                  courseid: data.courseid,
+                  timeStamap: Date.now(),
+                };
+                const docData: any = await getRequest(
+                  "/teacher/courseDocument/uploadtoClassDoc",
+                  params,
+                  window.KT_REQURE_URL,
+                );
+                if (docData.data.errcode === 200) {
+                  fun("保存成功");
+                }
+              }
+            });
+          }
+        });
+      } else {
+        const formData = new FormData();
+        formData.append("chunkNumber", "1");
+        formData.append("currentChunkSize", b?.size);
+        formData.append("totalSize", b?.size);
+        formData.append("identifier", `${b?.size}-${name}png`);
+        formData.append("filename", `${name}.png`);
+        formData.append("relativePath", `${name}.png`);
+        formData.append("totalChunks", "1");
+        formData.append("name", `${name}.png`);
+        formData.append("size", b?.size);
+        formData.append("type", b?.type);
+        formData.append("id", "WU_FILE_2");
+        formData.append("lastModifiedDate", new Date().toString());
+        formData.append("fid", "");
+        // formData.append("courseid", excalidrawData.courseid || "");
+        formData.append("resType", "1");
+        formData.append("tid", excalidrawData.tid || "");
+        formData.append("token", excalidrawData.token || "");
+        formData.append("chunk", "0");
+        formData.append("chunks", "1");
+        formData.append("multiFile", b);
+        const courseData: any = await postRequest(
+          "/myresources/getMyResCourseByTid",
+          { tId: excalidrawData.tid },
+          window.JX_REQURE_URL,
+        );
+        if (courseData.data.errcode === 200) {
+          formData.append("courseid", courseData.data.data.id || "");
+          await fetch(
+            `${window.JX_REQURE_URL}/teacher/resdocument/uploadResourceOfPC`,
+            {
+              method: "POST",
+              headers: {
+                Authtoken: excalidrawData.token,
+              },
+              body: formData,
+            },
+          ).then((response) => {
+            if (response.ok) {
+              response.json().then(async (res) => {
+                if (res.errcode === 200) {
+                  fun("保存成功");
+                } else {
+                  fun(res.errmsg);
+                }
+              });
+            }
+          });
+        }
+      }
     });
-    return;
+    return b;
   }
   if (type === "png") {
-    let blob = canvasToBlob(tempCanvas);
-
-    if (appState.exportEmbedScene) {
-      blob = blob.then((blob) =>
-        import("./image").then(({ encodePngMetadata }) =>
-          encodePngMetadata({
-            blob,
-            metadata: serializeAsJSON(elements, appState, files, "local"),
-          }),
-        ),
-      );
-    }
-
-    return fileSave(blob, {
-      description: "Export to PNG",
-      name,
-      // FIXME reintroduce `excalidraw.png` when most people upgrade away
-      // from 111.0.5563.64 (arm64), see #6349
-      extension: /* appState.exportEmbedScene ? "excalidraw.png" : */ "png",
-      fileHandle,
-    });
   } else if (type === "clipboard") {
     try {
       const blob = canvasToBlob(tempCanvas);

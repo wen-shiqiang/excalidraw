@@ -1737,7 +1737,6 @@ class App extends React.Component<AppProps, AppState> {
     fileName?: string,
   ) => {
     console.log("🚀  App  fileName:", fileName);
-
     trackEvent("export", type, "ui");
     const fileHandle = await exportCanvas(
       type,
@@ -1751,13 +1750,20 @@ class App extends React.Component<AppProps, AppState> {
         exportingFrame: opts.exportingFrame,
       },
       fileName,
+      (message: string = "") => {
+        this.setToast({
+          message,
+          closable: false,
+          duration: 3000,
+        });
+        // this.setState({ errorMessage: message });
+      },
     )
       .catch(muteFSAbortError)
       .catch((error) => {
         console.error(error);
         this.setState({ errorMessage: error.message });
       });
-
     if (
       this.state.exportEmbedScene &&
       fileHandle &&

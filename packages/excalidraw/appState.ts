@@ -53,7 +53,7 @@ export const getDefaultAppState = (): Omit<
     exportBackground: true,
     exportScale: defaultExportScale,
     exportEmbedScene: false,
-    exportWithDarkMode: false,
+    exportWithDarkMode: true,
     fileHandle: null,
     gridSize: null,
     isBindingEnabled: true,

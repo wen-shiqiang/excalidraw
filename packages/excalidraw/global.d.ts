@@ -2,7 +2,8 @@ interface Window {
   ClipboardItem: any;
   __EXCALIDRAW_SHA__: string | undefined;
   EXCALIDRAW_ASSET_PATH: string | undefined;
-  EXCALIDRAW_REQURE_URL_PATH: string;
+  KT_REQURE_URL: string;
+  JX_REQURE_URL: string;
   EXCALIDRAW_EXPORT_SOURCE: string;
   EXCALIDRAW_THROTTLE_RENDER: boolean | undefined;
   gtag: Function;

@@ -292,6 +292,9 @@ const ImageExportModal = ({
             // onKeyDown={handleKeyDown}
             value={fileName}
             onChange={(event) => {
+              setFileName(event.target.value ? event.target.value : "");
+            }}
+            onBlur={(event) => {
               setFileName(
                 event.target.value
                   ? event.target.value

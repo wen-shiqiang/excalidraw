@@ -268,6 +268,26 @@ export const exportCanvas = async (
     return b;
   }
   if (type === "png") {
+    let blob = canvasToBlob(tempCanvas);
+    if (appState.exportEmbedScene) {
+      blob = blob.then((blob) =>
+        import("./image").then(({ encodePngMetadata }) =>
+          encodePngMetadata({
+            blob,
+            metadata: serializeAsJSON(elements, appState, files, "local"),
+          }),
+        ),
+      );
+    }
+
+    return fileSave(blob, {
+      description: "Export to PNG",
+      name,
+      // FIXME reintroduce `excalidraw.png` when most people upgrade away
+      // from 111.0.5563.64 (arm64), see #6349
+      extension: /* appState.exportEmbedScene ? "excalidraw.png" : */ "png",
+      fileHandle,
+    });
   } else if (type === "clipboard") {
     try {
       const blob = canvasToBlob(tempCanvas);

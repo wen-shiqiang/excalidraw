@@ -1756,7 +1756,7 @@ class App extends React.Component<AppProps, AppState> {
           closable: false,
           duration: 3000,
         });
-        // this.setState({ errorMessage: message });
+        // this.setState;
       },
     )
       .catch(muteFSAbortError)
